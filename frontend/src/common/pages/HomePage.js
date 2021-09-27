@@ -1,9 +1,8 @@
 import React from "react";
+import { SignIn } from "common/index"
 
-const HomePage = () => (
-    <>
-        <h1>프론트 엔드 홈페이지 화면~!</h1>
-    </>
-)
-
-export default HomePage
+export default function HomePage() {
+    return (<>
+        <SignIn/>
+    </>)
+}

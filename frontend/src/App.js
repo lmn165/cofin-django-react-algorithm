@@ -1,7 +1,7 @@
    
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
-import { HomePage, Navigation } from 'common/index'
+import { HomePage, Navigation, Counter } from 'common/index'
 import { BackTracking, BruteForce, DivideConquer, DynamicProgramming, Greedy} from 'algorithm/index'
 import { Linear, Math, NonLinear} from 'datastructure/index'
 
@@ -13,6 +13,7 @@ const App = () => (
   <Route exact path='/' component = { HomePage }/>
   <Redirect from='/home' to = { '/' }/>
 
+  <Route exact path='/counter' component= { Counter }/>
   <Route exact path='/backtracking' component= { BackTracking }/>
   <Route exact path='/bruteforce' component= { BruteForce }/>
   <Route exact path='/divideconquer' component= { DivideConquer }/>
