@@ -6,6 +6,7 @@ const Navigation = () => (
 <Nav class="navi">
     <NavList>
         <NavItem><Link to='/counter'>Counter</Link></NavItem>
+        <NavItem><Link to='/todo'>Todo</Link></NavItem>
         <NavItem><Link to='/backtracking'>BackTracking</Link></NavItem>
         <NavItem><Link to='/bruteforce'>Brute Force</Link></NavItem>
         <NavItem><Link to='/divideconquer'>Divide Conquer</Link></NavItem>
