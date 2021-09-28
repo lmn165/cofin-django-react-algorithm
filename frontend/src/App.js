@@ -1,30 +1,36 @@
-   
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
-import { HomePage, Navigation, Counter, Todo } from 'common/index'
-import { BackTracking, BruteForce, DivideConquer, DynamicProgramming, Greedy} from 'algorithm/index'
-import { Linear, Math, NonLinear} from 'datastructure/index'
+import { HomePage, Navigation, Counter, Todo } from 'common'
+import { BackTracking, BruteForce, DivideConquer, DynamicProgramming, Greedy} from 'algorithm'
+import { Linear, Math, NonLinear} from 'datastructure'
+import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { todoReducer } from 'reducers'
 
+const rootReducer = combineReducers({todoReducer})
+const store = createStore(rootReducer)
 
 const App = () => (
 <>
-  <Navigation/>
-  <Switch>
-  <Route exact path='/' component = { HomePage }/>
-  <Redirect from='/home' to = { '/' }/>
+  <Provider store={store}>
+    <Navigation/>
+    <Switch>
+      <Route exact path='/' component = { HomePage }/>
+      <Redirect from='/home' to = { '/' }/>
 
-  <Route exact path='/counter' component= { Counter }/>
-  <Route exact path='/todo' component= { Todo }/>
-  <Route exact path='/backtracking' component= { BackTracking }/>
-  <Route exact path='/bruteforce' component= { BruteForce }/>
-  <Route exact path='/divideconquer' component= { DivideConquer }/>
-  <Route exact path='/dynamic' component= { DynamicProgramming }/>
-  <Route exact path='/greedy' component= { Greedy }/>
+      <Route exact path='/counter' component= { Counter }/>
+      <Route exact path='/todo' component= { Todo }/>
+      <Route exact path='/backtracking' component= { BackTracking }/>
+      <Route exact path='/bruteforce' component= { BruteForce }/>
+      <Route exact path='/divideconquer' component= { DivideConquer }/>
+      <Route exact path='/dynamic' component= { DynamicProgramming }/>
+      <Route exact path='/greedy' component= { Greedy }/>
 
-  <Route exact path='/linear' component= { Linear }/>
-  <Route exact path='/math' component= { Math }/>
-  <Route exact path='/nonlinear' component= { NonLinear }/>
-  </Switch>
+      <Route exact path='/linear' component= { Linear }/>
+      <Route exact path='/math' component= { Math }/>
+      <Route exact path='/nonlinear' component= { NonLinear }/>
+    </Switch>
+  </Provider>
 </>
 )
 
