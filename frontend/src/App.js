@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
-import { HomePage, Navigation, Counter, Todo } from 'common'
+import { HomePage, Navigation, Counter, Todo, SignUp } from 'common'
 import { BackTracking, BruteForce, DivideConquer, DynamicProgramming, Greedy} from 'algorithm'
 import { Linear, Math, NonLinear} from 'datastructure'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { todoReducer } from 'reducers'
+import { todoReducer, userReducer } from 'reducers'
 
-const rootReducer = combineReducers({todoReducer})
+const rootReducer = combineReducers({todoReducer, userReducer})
 const store = createStore(rootReducer)
 
 const App = () => (
@@ -20,6 +20,8 @@ const App = () => (
 
       <Route exact path='/counter' component= { Counter }/>
       <Route exact path='/todo' component= { Todo }/>
+      <Route exact path='/signup' component= { SignUp }/>
+
       <Route exact path='/backtracking' component= { BackTracking }/>
       <Route exact path='/bruteforce' component= { BruteForce }/>
       <Route exact path='/divideconquer' component= { DivideConquer }/>
