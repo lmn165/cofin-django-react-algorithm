@@ -35,11 +35,12 @@ export default function UserJoin() {
   const [user, setUser] = useState({
     username: '',
     pwd: '',
+    name: '',
     email: '',
     birth: '',
     address: ''
   })
-  const {username, pwd, email, birth, address} = user
+  const {username, pwd, name, email, birth, address} = user
   // const dispatch = useDispatch()
   const handleSubmit = e => {
     e.preventDefault();
@@ -100,7 +101,18 @@ export default function UserJoin() {
               id="password"
               value = {pwd}
               onChange = {handleChange}
-              autoComplete="current-password"
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="name"
+              label="name"
+              type="text"
+              id="name"
+              value = {name}
+              onChange = {handleChange}
             />
 
 
@@ -113,8 +125,6 @@ export default function UserJoin() {
               name="email"
               value = {email}
               onChange = {handleChange}
-              autoComplete="email"
-              autoFocus
             />
 
             <TextField
@@ -126,8 +136,6 @@ export default function UserJoin() {
               name="birth"
               value = {birth}
               onChange = {handleChange}
-              autoComplete="birth"
-              autoFocus
             />
 
             <TextField
@@ -139,8 +147,6 @@ export default function UserJoin() {
               name="address"
               value = {address}
               onChange = {handleChange}
-              autoComplete="address"
-              autoFocus
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
