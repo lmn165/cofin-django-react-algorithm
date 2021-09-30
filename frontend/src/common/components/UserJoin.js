@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -15,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useDispatch } from 'react-redux'
 import { addUserAction } from 'reducers/user.reducer'
+import { userRegister } from 'api';
 
 function Copyright(props) {
   return (
@@ -40,14 +40,16 @@ export default function UserJoin() {
     address: ''
   })
   const {username, pwd, email, birth, address} = user
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const handleSubmit = e => {
     e.preventDefault();
     alert(`가입 회원정보: ${JSON.stringify(user)}`)
-    // const newUser = {user}
-    addUser(user)
+    userRegister({user})
+    .then(res => {alert(`회원가입 완료: ${res.data.result}`)})
+    .catch(err => {alert(`회원가입 실패: ${err}`)})
+    // addUser(user)
   };
-  const addUser = payload => (dispatch(addUserAction(payload)))
+  // const addUser = payload => (dispatch(addUserAction(payload)))
   const handleChange = e => {
       e.preventDefault()
       const {name, value} = e.target
