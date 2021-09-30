@@ -32,106 +32,130 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function UserJoin() {
-    const [email, setEmail] = useState('')
-    const [pwd, setPwd] = useState('')
-    const dispatch = useDispatch()
+  const [user, setUser] = useState({
+    username: '',
+    pwd: '',
+    email: '',
+    birth: '',
+    address: ''
+  })
+  const {username, pwd, email, birth, address} = user
+  const dispatch = useDispatch()
+  const handleSubmit = e => {
+    e.preventDefault();
+    alert(`가입 회원정보: ${JSON.stringify(user)}`)
+    // const newUser = {user}
+    addUser(user)
+  };
+  const addUser = payload => (dispatch(addUserAction(payload)))
+  const handleChange = e => {
+      e.preventDefault()
+      const {name, value} = e.target
+      setUser({
+        ...user,
+        [name]: value
+      })
+  }
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} method="POST">
+          <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="username"
+              name="username"
+              value = {username}
+              onChange = {handleChange}
+              autoComplete="username"
+              autoFocus
+            />
 
-    const handleSubmit = e => {
-      e.preventDefault();
-      const newUser = {
-        email,
-        pwd
-      }
-      console.log(newUser.email)
-      console.log(newUser.pwd)
-      addUser(newUser)
-      setEmail('')
-      setPwd('')
-    };
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="pwd"
+              label="Password"
+              type="password"
+              id="password"
+              value = {pwd}
+              onChange = {handleChange}
+              autoComplete="current-password"
+            />
 
-    const addUser = user => (dispatch(addUserAction(user)))
 
-    const handleAddress = e => {
-        e.preventDefault()
-        setEmail(e.target.value)
-    }
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              value = {email}
+              onChange = {handleChange}
+              autoComplete="email"
+              autoFocus
+            />
 
-    const handlePwd = e => {
-        e.preventDefault()
-        setPwd(e.target.value)
-    }
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="birth"
+              label="birth"
+              name="birth"
+              value = {birth}
+              onChange = {handleChange}
+              autoComplete="birth"
+              autoFocus
+            />
 
-    return (
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} method="POST">
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                value = {email}
-                onChange = {handleAddress}
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                value = {pwd}
-                onChange = {handlePwd}
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </Box>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Address"
+              name="address"
+              value = {address}
+              onChange = {handleChange}
+              autoComplete="address"
+              autoFocus
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
           </Box>
-          <Copyright sx={{ mt: 8, mb: 4 }} />
-        </Container>
-      </ThemeProvider>
-    );
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+  );
 }
