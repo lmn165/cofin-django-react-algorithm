@@ -45,7 +45,7 @@ export default function UserJoin() {
   const handleSubmit = e => {
     e.preventDefault();
     alert(`가입 회원정보: ${JSON.stringify(user)}`)
-    userRegister({user})
+    userRegister({...user})
     .then(res => {alert(`회원가입 완료: ${res.data.result}`)})
     .catch(err => {alert(`회원가입 실패: ${err}`)})
     // addUser(user)
