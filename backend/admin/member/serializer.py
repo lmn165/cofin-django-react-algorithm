@@ -1,6 +1,6 @@
 from rest_framework import serializers
 # pip install Django django-rest-framework
-from .models import MemberVo as user
+from .models import Member as user
 
 
 class UserSerializer(serializers.Serializer):
