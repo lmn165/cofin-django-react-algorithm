@@ -15,7 +15,7 @@ def housing_info(request):
 ''' 오늘은 여기까지 '''
 
 def housing_hist(request):
-    HousingService().housing_info()
+    HousingService().housing_hist()
     return JsonResponse({'result': 'Housing Hist SUCCESS'})
 
 
@@ -27,5 +27,5 @@ def income_cat_hist(request):
 
 def split_model_by_income_cat(request):
     hs = HousingService()
-    hs.income_cat_hist()
+    hs.split_model()
     return JsonResponse({'result': 'income_cat_hist Save Success'})
