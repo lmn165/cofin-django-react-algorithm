@@ -10,7 +10,7 @@ import googlemaps
 
 
 @dataclass
-class DFrameGenerator(object):
+class ValueObject(object):
 
     train: object
     test: object
@@ -112,7 +112,7 @@ class Reader(ReaderBase):
         return json.load(open(f'{file}.json', encoding='UTF-8'))
 
     def gmaps(self) -> object:
-        return googlemaps.Client(key='inputApiKey')
+        return googlemaps.Client(key='')
 
 
 class Printer(PrinterBase):
@@ -120,6 +120,6 @@ class Printer(PrinterBase):
         ic(this.head(3))
         ic(this.tail(3))
         ic(this.info())
+        print(this.isnull().sum())
         # ic(this.columns())
         # ic(this.describe())
-        print(this.isnull().sum())

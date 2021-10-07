@@ -4,5 +4,7 @@ from admin.crime import views
 
 urlpatterns = {
     url(r'crime-model', views.crime_model),
-    url(r'police-position', views.police_position)
+    url(r'police-position', views.police_position),
+    url(r'cctv-model', views.cctv_model),
+    url(r'population-model', views.population_model)
 }
