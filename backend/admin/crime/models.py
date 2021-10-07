@@ -68,10 +68,10 @@ class CrimeCctvModel():
         vo.context = 'admin/crime/data/'
         vo.fname = 'CCTV_in_Seoul'
         cctv_file_name = reader.new_file(vo)
-        print('after filename')
         cctv_model = reader.csv(cctv_file_name)
-        print('after model')
+        cctv_model.rename(columns={'기관명': '구별'}, inplace=True)
         printer.dframe(cctv_model)
+        cctv_model.to_csv(vo.context+'new_data/cctv_positions.csv')
         return cctv_model
 
     def create_population_model(self):
@@ -83,5 +83,7 @@ class CrimeCctvModel():
         population_file_name = reader.new_file(vo)
         # ('B', 'D', 'G', 'J', 'N')
         population_model = reader.xls(population_file_name, 1, ('B, D, G, J, N'))
+        population_model.rename(columns={'자치구': '구별'}, inplace=True)
         printer.dframe(population_model)
+        population_model.to_csv(vo.context+'new_data/population_positions.csv')
         return population_model
