@@ -120,6 +120,6 @@ class Printer(PrinterBase):
         ic(this.head(3))
         ic(this.tail(3))
         ic(this.info())
-        print(this.isnull().sum())
+        ic(this.isnull().sum())
         # ic(this.columns())
         # ic(this.describe())

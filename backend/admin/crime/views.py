@@ -24,4 +24,19 @@ def cctv_model(request):
 
 def population_model(request):
     CrimeCctvModel().create_population_model()
-    return JsonResponse({'result': 'CCTV Info Success'})
+    return JsonResponse({'result': 'Pop Info Success'})
+
+
+def merge_cctv_pop(request):
+    CrimeCctvModel().merge_cctv_pop()
+    return JsonResponse({'result': 'Merge CCTV Pop Success'})
+
+
+def sum_pol(request):
+    CrimeCctvModel().sum_pol()
+    return JsonResponse({'result': 'sum pol Success'})
+
+
+def compression_police(request):
+    CrimeCctvModel().compression_police()
+    return JsonResponse({'result': 'compression Success'})
