@@ -9,5 +9,5 @@ urlpatterns = {
     url(r'population-model', views.population_model),
     url(r'merge-cctv-pop', views.merge_cctv_pop),
     url(r'sum-pol', views.sum_pol),
-    url(r'compression-police', views.compression_police)
+    url(r'process', views.process)
 }

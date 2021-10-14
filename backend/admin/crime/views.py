@@ -2,7 +2,8 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import JSONParser
 
-from admin.crime.models import CrimeCctvModel
+from admin.crime.models_old import CrimeCctvModel
+from admin.crime.models import Crime
 
 
 @api_view(['GET'])
@@ -37,6 +38,6 @@ def sum_pol(request):
     return JsonResponse({'result': 'sum pol Success'})
 
 
-def compression_police(request):
-    CrimeCctvModel().compression_police()
-    return JsonResponse({'result': 'compression Success'})
+def process(request):
+    Crime().process()
+    return JsonResponse({'result': 'Process Success'})
