@@ -104,7 +104,7 @@ class Crime():
         print('[8] folium CREATION')
         vo.fname = 'geo_simple'
         state_geo = reader.json(reader.new_file(vo))
-        m = folium.Map(location=[37.5642135, 127.0016985], zoom_start=12)  # Seoul
+        map = folium.Map(location=[37.5642135, 127.0016985], zoom_start=12, title='Stamen Toner')  # Seoul
 
         folium.Choropleth(
             geo_data=state_geo,
@@ -112,13 +112,21 @@ class Crime():
             data=crime_police_tuple,
             columns=["Gu", "Crime Rate"],
             key_on="feature.id",
-            fill_color="YlGn",
+            fill_color="PuRd",
             fill_opacity=0.7,
             line_opacity=0.2,
-            legend_name="Unemployment Rate (%)",
-        ).add_to(m)
-        folium.LayerControl().add_to(m)
-        m.save(vo.context+'new_data/folium.html')
+            legend_name="Crime Rate (%)",
+        ).add_to(map)
+        folium.LayerControl().add_to(map)
+        ############ CircleMarker ###############
+        # print(crime_df.index)
+        for i in crime_df.index:
+            folium.CircleMarker([crime_df['lat'][i], crime_df['lng'][i]],
+                                radius=crime_df['검거'][i] * 10,
+                                fill_color='#0a0a32').add_to(map)
+        map.save(vo.context+'new_data/folium.html')
+
+
 
     def crime_police(self, crime_df, reader, vo):
         station_names = []
