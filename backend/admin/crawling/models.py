@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn import preprocessing
 from admin.common.models import ValueObject, Printer, Reader
@@ -9,8 +10,12 @@ from bs4 import BeautifulSoup
 import datetime as dt
 from konlpy.tag import Okt
 from nltk.tokenize import word_tokenize
+from nltk import FreqDist
+from wordcloud import WordCloud
 import nltk
 import re
+from datetime import datetime
+import matplotlib.pyplot
 
 
 class Crawling(object):
@@ -27,11 +32,45 @@ class Crawling(object):
 
     def samsung_report(self, vo):
         okt = Okt()
-        okt.pos('삼성전자 글로벌센터 전자사업부', stem=True)
-        vo.fname = 'kr-Report_2018.txt'
-        with open(vo.context+vo.fname, 'r', encoding='UTF-8') as f:
-            texts = f.read()
-        print(texts)
+        # daddy_bag = okt.pos('아버지 가방에 들어가신다', norm=True, stem=True)
+        # print(f'::::::::: {datetime.now()} :::::::::\n {daddy_bag}')
+
+        samsng = okt.pos('삼성전자 글로벌센터 전자사업부', stem=True)
+        print(f'::::::::: {datetime.now()} :::::::::\n {samsng}')
+        with open(f'{vo.context}kr-Report_2018.txt', 'r', encoding='UTF-8') as f:
+            full_texts = f.read()
+        # print(texts)
+        line_removed_texts = full_texts.replace('\n', ' ')
+        # print(f'::::::::: {datetime.now()} :::::::::\n {line_removed_texts}')
+        tokenizer = re.compile(r'[^ ㄱ-힣]+')     # ^ 뒤에 공백 필수!
+        tokenized_texts = tokenizer.sub('', line_removed_texts)          # 직렬화한 문자열 temp에서 한글이 아닌 것들을 삭제
+        tokens = word_tokenize(tokenized_texts)
+        # print(f'::::::::: {datetime.now()} :::::::::\n {tokens}')
+        noun_tokens = []
+        for token in tokens:
+            token_pos = okt.pos(token)
+            noun_token = [txt_tag[0] for txt_tag in token_pos if txt_tag[1] == 'Noun']
+            if len(''.join(noun_token)) > 1:
+                noun_tokens.append(''.join(noun_token))
+        # print(f'::::::::: {datetime.now()} :::::::::\n {noun_tokens[:10]}')
+        noun_tokens_join = ' '.join(noun_tokens)
+        tokens = word_tokenize(noun_tokens_join)
+        # print(f'::::::::: {datetime.now()} :::::::::\n {tokens}')
+
+        with open(f'{vo.context}stopwords.txt', 'r', encoding='UTF-8') as f:
+            stopwords = f.read()
+        stopwords = stopwords.split(' ')
+        stopwords.extend(['용량', '각주', '가능보고서', '고려', '릴루미노', '전세계', '가치창'])
+        texts_without_stopwords = [text for text in tokens if text not in stopwords]
+        # print(f'::::::::: {datetime.now()} :::::::::\n {text_without_stopwords}')
+        freq_txt = pd.Series(dict(FreqDist(texts_without_stopwords))).sort_values(ascending=False)
+        # print(f'::::::::::::::: {datetime.now()} ::::::::::::::: \n {freq_txt[:30]}')
+        wcloud = WordCloud(f'{vo.context}D2Coding.ttf', relative_scaling=0.2,
+                           background_color='white').generate(' '.join(texts_without_stopwords))
+        plt.figure(figsize=(12, 12))
+        plt.imshow(wcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.savefig(f'{vo.context}wcloud.png')
 
 
     def naver_movie(self):
