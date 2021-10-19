@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class CalculatorConfig(AppConfig):
-    name = 'admin.calculator'
+    name = 'admin.tensor'
