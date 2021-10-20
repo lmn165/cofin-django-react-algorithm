@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn import preprocessing
 from admin.common.models import ValueObject, Printer, Reader
-from icecream import ic
 import numpy as np
 import csv
 from selenium import webdriver

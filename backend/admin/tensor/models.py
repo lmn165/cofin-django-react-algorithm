@@ -13,16 +13,16 @@ class TensorFunction(object):
 
     def hook(self):
         # self.tf_function()
-        self.decorator_example()
+        result = self.decorator_example()
+        print(f'결과: {result}')
 
     @tf.function
     def decorator_example(self):
-        a = tf.constant(1)
-        b = tf.constant(2)
-        c = tf.constant(3)
+        a = tf.constant(1, tf.float32)
+        b = tf.constant(2, tf.float32)
+        c = tf.constant(3, tf.float32)
         z = a + b + c
-        print(f'@tf.function 사용하기: {z}')
-        # @tf.function 사용하기: Tensor("add_1:0", shape=(), dtype=int32)
+        print('#'*100)
         return z
 
     def tf_function(self):
