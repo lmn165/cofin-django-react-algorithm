@@ -26,7 +26,7 @@ class MyCV2(object):
         for(x, y, w, h) in face:
             # red = (0, 0, 255)
             # cv2.rectangle(image, (x, y), (x+w, y+h), red, thickness=20)
-            mos = self.mosaic(image, rect=(x, y, (x+w), (y+h)), size=10)
+            mos = self.mosaic(image, rect=(x, y, (x+w), (y+h)), size=20)
 
         cv2.imwrite(f'{vo.context}new_data/face_mosaic.png', mos)
         cv2.waitKey(0)
