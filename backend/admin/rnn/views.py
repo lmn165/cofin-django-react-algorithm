@@ -10,3 +10,10 @@ from admin.rnn.models import MyRNN
 def ram_price(request):
     MyRNN().ram_price()
     return JsonResponse({'Ram Price': 'SUCCESS'})
+
+
+@api_view(['GET'])
+@parser_classes([JSONParser])
+def kia_predict(request):
+    MyRNN().kia_predict()
+    return JsonResponse({'kia_predict': 'SUCCESS'})
