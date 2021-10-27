@@ -1,4 +1,4 @@
-from admin.nlp.models import NaverMovie
+from admin.myNLP.models import NaverMovie
 
 if __name__ == '__main__':
     n = NaverMovie()

@@ -56,7 +56,7 @@ class GPUKoreanClassification(object):
 class NaverMovie(object):
     def __init__(self):
         self.vo = ValueObject()
-        self.vo.context = 'admin/nlp/data/'
+        self.vo.context = 'admin/myNLP/data/'
         self.k = 0.5
         self.word_probs = []
 
@@ -155,7 +155,7 @@ class NaverMovie(object):
 class Imdb(object):
     def __init__(self):
         self.vo = ValueObject()
-        self.vo.context = 'admin/nlp/data/'
+        self.vo.context = 'admin/myNLP/data/'
 
     def decode_review(self, text, reverse_word_index):
         return ' '.join([reverse_word_index.get(i, '?') for i in text])
