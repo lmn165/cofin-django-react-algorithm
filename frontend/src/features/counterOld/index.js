@@ -1,1 +1,0 @@
-export {default as CounterOld} from 'features/counterOld/CounterOld'
