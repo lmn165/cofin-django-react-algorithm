@@ -4,17 +4,17 @@ import { useHistory  } from 'react-router-dom';
 
 export default function UserModify() {
     const history = useHistory()
-    const SERVER = 'http://localhost:8080'
+    const SERVER = 'http://127.0.0.1:8000/api'
     const sessionUser = JSON.parse(localStorage.getItem('sessionUser')); 
     const [modify, setModify] = useState({
-        userId: sessionUser.userId,
         username:sessionUser.username, 
-        password:sessionUser.password, 
+        pwd:sessionUser.pwd, 
         email:sessionUser.email, 
         name:sessionUser.name, 
-        regDate: sessionUser.regDate
+        address: sessionUser.address,
+        birth: sessionUser.birth
     })
-    const {userId, username, password, email, name} = modify
+    const {username, pwd, email, name, address, birth} = modify
     const handleChange = e => {
         const { value, name } = e.target
         setModify({
@@ -27,7 +27,7 @@ export default function UserModify() {
       'Authorization': 'JWT fefege..'
   }
     const UserModify = modifyRequest => 
-                axios.put(`${SERVER}/users`, JSON.stringify(modifyRequest),{headers})
+                axios.put(`${SERVER}/users/modify`, JSON.stringify(modifyRequest),{headers})
     
     const handleSubmit = e => {
         e.preventDefault()
@@ -51,13 +51,15 @@ export default function UserModify() {
     <form onSubmit={handleSubmit} method='PUT'>
         <ul>
             <li>
-              <label>
-                    <span>회원번호 : {sessionUser.userId} </span>
+                <label>
+                    <span>아이디 : {sessionUser.username} </span>
                 </label>
             </li>
             <li>
                 <label>
-                    <span>아이디 : {sessionUser.username} </span>
+                    이름 : <input type="text" id="name" name="name" placeholder={sessionUser.name}
+                    value={name}
+                    onChange={handleChange}/>
                 </label>
             </li>
             <li>
@@ -69,19 +71,18 @@ export default function UserModify() {
             </li>
             <li>
                 <label>
-                    비밀 번호 : <input type="password" id="password" name="password" placeholder={sessionUser.password} 
-                    value={password}
+                    비밀 번호 : <input type="password" id="pwd" name="pwd" placeholder={sessionUser.pwd} 
+                    value={pwd}
                     onChange={handleChange}/>
                 </label>
             </li>
             <li>
                 <label>
-                    이름 : <input type="text" id="name" name="name" placeholder={sessionUser.name}
-                    value={name}
+                    주소 : <input type="text" id="address" name="address" placeholder={sessionUser.address}
+                    value={address}
                     onChange={handleChange}/>
                 </label>
             </li>
-           
             <li>
                 <input type="submit" value="수정확인"/>
             </li>

@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 export default function UserLogin() {
-  const SERVER = 'http://127.0.0.1:8000'
+  const SERVER = 'http://127.0.0.1:8000/api'
   const [login, setLogin] = useState({})
-  const {username, password} = login
+  const {username, pwd} = login
   const history = useHistory()
 
   const handleChange = e => {
@@ -27,7 +27,7 @@ export default function UserLogin() {
   const handleClick = e =>{
     e.preventDefault()
     e.stopPropagation()
-    const loginRequest = {username, password}
+    const loginRequest = {username, pwd}
     // alert('로그인정보'+JSON.stringify(loginRequest))
     userLogin(loginRequest)
     .then(res => {
@@ -38,15 +38,15 @@ export default function UserLogin() {
         history.push("/detail")
       }else{
         alert('아이디, 비번 오류로 로그인 실패')
-        changeNull(['username', 'password'])
+        changeNull(['username', 'pwd'])
       }
     })
     .catch(err => {
       alert('접속 실패', + err)
-      changeNull(['username', 'password'])
+      changeNull(['username', 'pwd'])
     })
   }
-  const userLogin = loginRequest => axios.post(`${SERVER}/api/users/login`, JSON.stringify(loginRequest), {headers})
+  const userLogin = loginRequest => axios.post(`${SERVER}/users/login`, JSON.stringify(loginRequest), {headers})
   return (
     <div>
       <h1>유저 로그인</h1>
@@ -56,7 +56,7 @@ export default function UserLogin() {
           <input type="text" id="username"
               name="username" value={username} onChange={handleChange}/></li>
           <li><label for="pw">비밀번호</label>
-          <input type="password" id="password" name="password" onChange={handleChange}/></li>
+          <input type="password" id="pwd" name="pwd" onChange={handleChange}/></li>
           <li><input type="button" title="로그인" value="로그인" onClick={handleClick}/></li>
         </ul>
       </form>

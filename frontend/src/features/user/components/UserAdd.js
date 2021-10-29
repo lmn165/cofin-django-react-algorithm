@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 
 export default function UserAdd() {
-    const SERVER = 'http://127.0.0.1:8000'
+    const SERVER = 'http://127.0.0.1:8000/api'
     const history = useHistory()
     const [user, setUser] = useState({
         username: '',
         pwd: '',
         name: '',
         email: '',
-        birth: '',
+        birth: new Date().toLocaleDateString(),
         address: ''
       })
     const {username, pwd, name, email, birth, address} = user
@@ -21,7 +21,7 @@ export default function UserAdd() {
             [name]:  value
         })
     }
-    const userJoin = body => axios.post(`${SERVER}/api/users`, {headers, body})
+    const userJoin = body => axios.post(`${SERVER}/users/join`, {headers, body})
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': 'JWT fefege..'
@@ -69,12 +69,8 @@ export default function UserAdd() {
                     </li>
                     <li>
                         <label>
-                            등록일: <input type="text" id="birth" name="birth" value={birth} onChange={handleChange}/>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
                             주소: <input type="text" id="address" name="address" value={address} onChange={handleChange}/>
+                            <input type="hidden" id="birth" name="birth" value={birth} onChange={handleChange}/>
                         </label>
                     </li>
                     <li>

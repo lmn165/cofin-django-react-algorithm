@@ -6,24 +6,25 @@ export default function UserRemove() {
   const [pwd, setPwd] = useState('')
   const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
   const history = useHistory()
-  const SERVER = 'http://localhost:8080'
+  const SERVER = 'http://127.0.0.1:8000/api'
   
   const handleChange = e => {
     setPwd(e.target.value)
   }
   const handleClick = e => {
     e.preventDefault()
-    if(sessionUser.password === pwd){
-      axios.delete(`${SERVER}/users/${sessionUser.userId}`)
+    if(sessionUser.pwd === pwd){
+      axios.delete(`${SERVER}/users/remove/${sessionUser.username}`)
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
+        alert(res.data)
         localStorage.setItem('sessionUser', '')
-        history.push('/')
+        history.push('/list')
       })
       .catch(err => console.log(err))
     }else{
       alert('입력된 비밀번호가 틀립니다')
-      document.getElementById('password').value = ''
+      document.getElementById('pwd').value = ''
     }
     
   }
@@ -38,7 +39,7 @@ export default function UserRemove() {
                 </label>
             </li>
         <li><label for="pw">비밀번호 확인</label>
-        <input type="password" id="password" name="password" onChange={handleChange}/></li>
+        <input type="password" id="pwd" name="pwd" onChange={handleChange}/></li>
         <li><input type="submit" value="탈퇴요청" onClick={handleClick}/></li>
         <li><input type="button" value="탈퇴취소" onClick={e => history.push("/users/detail")}/></li>
     </ul>

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 export default function UserDetail() {
-  const SERVER = 'http://localhost:8080'
+  const SERVER = 'http://127.0.0.1:8000/api'
   const history = useHistory()  // history 는 이동할 때 사용하는 hook
   const [user, setUser] = useState({
     username: '',
@@ -18,9 +18,9 @@ export default function UserDetail() {
     const sessionUser = JSON.parse(localStorage.getItem('sessionUser'))
     alert(`사용자 아이디: ${sessionUser.username}`)
     // alert('pause!')
-    axios.get(`${SERVER}/api/users/${sessionUser.username}`)
+    axios.get(`${SERVER}/users/detail/${sessionUser.username}`)
     .then(res => {
-        // alert(`회원정보 조회 성공: ${res.data}`)
+        alert(`회원정보 조회 성공: ${res.data}`)
         setUser(res.data)
     })
     .catch(err => {
